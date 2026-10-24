@@ -1,0 +1,78 @@
+{
+  "title": "Choose the visual world for n1ghtly.dev",
+  "question": "Safer round, steered to a smooth modern 2026 SaaS UI with fluid motion. Every card stays dark and green. Pick one, or steer again.",
+  "options": [
+    {
+      "id": "bento",
+      "label": "Bento Showcase",
+      "lineage": "2025-26 product sites (Apple, Vercel, Linear feature grids)",
+      "thesis": "One screen holds every project as a tile sized by how much it matters, each showing the real thing working rather than describing it.",
+      "palette": ["#060f0a", "#0c1a12", "#14281c", "#e9f1eb", "#5ccf8f"],
+      "materials": ["soft-edged tiles on a deep green-black ground", "real screenshots and live-built previews", "hairline borders, no glow"],
+      "viewport": "Name and one line at top left; under it a bento: Couplet as the big tile with a real radar screenshot, dmcl as a rebuilt Discord/Minecraft chat exchange, Temperature Alarms as a small chart (sample data, labelled), MorphicVersions marked building, plus a bio tile and a links tile.",
+      "risk": "Bento grids are the 2025-26 default; it needs real previews and uneven tile sizes or it reads as a template.",
+      "wireframe": {"cols": 12, "rows": 10, "regions": [
+        {"label": "Hamza Qazi / one line / links", "x": 0, "y": 0, "w": 7, "h": 2, "accent": true},
+        {"label": "nav", "x": 8, "y": 0, "w": 4, "h": 1},
+        {"label": "Couplet (screenshot)", "x": 0, "y": 2, "w": 7, "h": 5},
+        {"label": "dmcl (chat preview)", "x": 7, "y": 2, "w": 5, "h": 3},
+        {"label": "Temp Alarms (chart)", "x": 7, "y": 5, "w": 3, "h": 2},
+        {"label": "MorphicVersions", "x": 10, "y": 5, "w": 2, "h": 2},
+        {"label": "bio", "x": 0, "y": 7, "w": 5, "h": 3},
+        {"label": "people / blog", "x": 5, "y": 7, "w": 7, "h": 3}
+      ]},
+      "comp": ".impeccable/mocks/decision/bento.webp"
+    },
+    {
+      "id": "changelog",
+      "label": "Release Notes",
+      "lineage": "dev-tool changelogs (Linear, Vercel, Raycast)",
+      "thesis": "Your work reads like a product's release notes: dated entries down a timeline, each with a real screenshot and what shipped.",
+      "palette": ["#07110c", "#0d1d15", "#e8f0ea", "#8fb39d", "#56c58a"],
+      "materials": ["a sticky date rail", "large real screenshots", "tight sans type"],
+      "viewport": "Name and one line at top; directly under, the newest entry, Couplet, with a full-width screenshot, its date and Shipped; the timeline rail runs down the left into dmcl and the rest.",
+      "risk": "With four projects the timeline can look thin; changelog styling is common in dev tools.",
+      "wireframe": {"cols": 12, "rows": 10, "regions": [
+        {"label": "Hamza Qazi / one line", "x": 2, "y": 0, "w": 8, "h": 2, "accent": true},
+        {"label": "date rail", "x": 0, "y": 2, "w": 2, "h": 8},
+        {"label": "Couplet entry + screenshot", "x": 2, "y": 2, "w": 10, "h": 5},
+        {"label": "dmcl entry", "x": 2, "y": 7, "w": 10, "h": 3}
+      ]},
+      "comp": ".impeccable/mocks/decision/changelog.webp"
+    },
+    {
+      "id": "palette",
+      "label": "Command Menu",
+      "lineage": "Raycast / Linear command palettes",
+      "thesis": "The home screen is an open, searchable command menu: every project, page and link is one keystroke or click away.",
+      "palette": ["#050d09", "#0f1f16", "#1a3325", "#e6eee8", "#6ad69a"],
+      "materials": ["a single floating panel", "grouped result rows", "inline previews"],
+      "viewport": "A centred command menu already open, listing Projects, Pages and Links; moving through it swaps a large preview of the selected project beside it.",
+      "risk": "Puts the work behind an interaction: recruiters who just scroll may not engage, and it brings back the keyboard focus you dropped.",
+      "wireframe": {"cols": 12, "rows": 10, "regions": [
+        {"label": "Hamza Qazi", "x": 0, "y": 0, "w": 12, "h": 1, "accent": true},
+        {"label": "command menu (list)", "x": 1, "y": 2, "w": 5, "h": 7},
+        {"label": "selected project preview", "x": 6, "y": 2, "w": 5, "h": 7}
+      ]},
+      "comp": ".impeccable/mocks/decision/palette.webp"
+    }
+  ],
+  "reroll": {"registers": ["safer", "bolder"]},
+  "buildPath": {"value": "code", "toggle": false},
+  "canon": true,
+  "canonCard": {
+    "label": "2026 SaaS, played straight",
+    "thesis": "The Linear / Vercel / Raycast landing page, done at their level for a person: big headline, product shot, sections that animate in smoothly.",
+    "palette": ["#060d09", "#0e1a13", "#eaf2ec", "#9bb8a6", "#4fc283"],
+    "materials": ["precise sans type", "a product shot in a browser frame", "spring-based motion", "sticky nav"],
+    "viewport": "Your name as the headline with one line and two buttons (Projects, Email); below, a large Couplet screenshot in a browser frame that tilts flat as you scroll; then one section per project.",
+    "risk": "Looks like a SaaS launch page for a person; well made, but closest to everything else out there.",
+    "wireframe": {"cols": 12, "rows": 10, "regions": [
+      {"label": "sticky nav", "x": 0, "y": 0, "w": 12, "h": 1},
+      {"label": "Hamza Qazi headline + 2 buttons", "x": 2, "y": 1, "w": 8, "h": 3, "accent": true},
+      {"label": "Couplet product shot", "x": 1, "y": 4, "w": 10, "h": 6}
+    ]},
+    "comp": ".impeccable/mocks/decision/canon.webp"
+  },
+  "steer": true
+}

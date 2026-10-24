@@ -1,0 +1,12 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "n1ghtly-dev",
+  "compatibility_date": "2026-10-01",
+  // Fully prerendered: the Worker only serves static files.
+  "assets": {
+    "directory": "./dist/client",
+    "not_found_handling": "404-page",
+    "html_handling": "drop-trailing-slash"
+  },
+  "preview_urls": true
+}

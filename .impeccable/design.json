@@ -1,0 +1,167 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-23T00:00:00Z",
+  "title": "Design System: n1ghtly.dev",
+  "extensions": {
+    "colorMeta": {
+      "leaf": { "role": "primary", "displayName": "Leaf Green", "canonical": "light-dark(#17804a, #5ccf8f)", "tonalRamp": ["oklch(25% 0.06 155)", "oklch(35% 0.09 155)", "oklch(45% 0.12 155)", "oklch(55% 0.14 155)", "oklch(65% 0.15 155)", "oklch(75% 0.14 155)", "oklch(85% 0.10 155)", "oklch(95% 0.04 155)"] },
+      "leaf-light": { "role": "primary", "displayName": "Leaf Green (light half)", "canonical": "light-dark(#17804a, #5ccf8f)" },
+      "bud": { "role": "secondary", "displayName": "Bud Ochre", "canonical": "light-dark(#86640c, #d9b85c)", "tonalRamp": ["oklch(25% 0.05 85)", "oklch(35% 0.07 85)", "oklch(45% 0.09 85)", "oklch(55% 0.11 85)", "oklch(65% 0.12 85)", "oklch(78% 0.12 85)", "oklch(87% 0.09 85)", "oklch(95% 0.04 85)"] },
+      "bud-light": { "role": "secondary", "displayName": "Bud Ochre (light half)", "canonical": "light-dark(#86640c, #d9b85c)" },
+      "ground": { "role": "neutral", "displayName": "Canopy Black", "canonical": "light-dark(#f2f6f3, #060f0a)", "tonalRamp": ["#060f0a", "#0c1a12", "#11241a", "#1f5236", "#4b6356", "#93ad9e", "#e8f0ea", "#f2f6f3"] },
+      "ground-light": { "role": "neutral", "displayName": "Canopy Paper", "canonical": "light-dark(#f2f6f3, #060f0a)" },
+      "tile": { "role": "neutral", "displayName": "Tile Green", "canonical": "light-dark(#ffffff, #0c1a12)" },
+      "tile-light": { "role": "neutral", "displayName": "Tile White", "canonical": "light-dark(#ffffff, #0c1a12)" },
+      "tile-2": { "role": "neutral", "displayName": "Raised Moss", "canonical": "light-dark(#e8f0ea, #11241a)" },
+      "tile-2-light": { "role": "neutral", "displayName": "Raised Moss (light half)", "canonical": "light-dark(#e8f0ea, #11241a)" },
+      "line": { "role": "neutral", "displayName": "Hairline", "canonical": "light-dark(rgb(12 40 26 / 0.1), rgb(200 235 214 / 0.08))" },
+      "line-light": { "role": "neutral", "displayName": "Hairline (light half)", "canonical": "light-dark(rgb(12 40 26 / 0.1), rgb(200 235 214 / 0.08))" },
+      "line-strong": { "role": "neutral", "displayName": "Hairline Strong", "canonical": "light-dark(rgb(12 40 26 / 0.2), rgb(200 235 214 / 0.18))" },
+      "line-strong-light": { "role": "neutral", "displayName": "Hairline Strong (light half)", "canonical": "light-dark(rgb(12 40 26 / 0.2), rgb(200 235 214 / 0.18))" },
+      "ink": { "role": "neutral", "displayName": "Pale Leaf Ink", "canonical": "light-dark(#0b1a12, #e9f1eb)" },
+      "ink-light": { "role": "neutral", "displayName": "Deep Leaf Ink", "canonical": "light-dark(#0b1a12, #e9f1eb)" },
+      "muted": { "role": "neutral", "displayName": "Lichen Muted", "canonical": "light-dark(#4b6356, #93ad9e)" },
+      "muted-light": { "role": "neutral", "displayName": "Lichen Muted (light half)", "canonical": "light-dark(#4b6356, #93ad9e)" },
+      "selection": { "role": "neutral", "displayName": "Selection", "canonical": "light-dark(#bfe6cf, #1f5236)" },
+      "selection-light": { "role": "neutral", "displayName": "Selection (light half)", "canonical": "light-dark(#bfe6cf, #1f5236)" },
+      "shot-ground": { "role": "neutral", "displayName": "Shot Ground", "canonical": "#0c0d0c" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "The name on the home hero only." },
+      "headline": { "displayName": "Headline", "purpose": "Page titles on inner routes; blog post titles use clamp(34px, 5vw, 52px) at stretch 110%." },
+      "title-lg": { "displayName": "Title Large", "purpose": "Project names on /projects." },
+      "title": { "displayName": "Title", "purpose": "Tile headings and the footer invitation line." },
+      "body": { "displayName": "Body", "purpose": "Tile summaries in muted, max 46ch." },
+      "body-lead": { "displayName": "Body Lead", "purpose": "Lead paragraphs and long-form prose (prose at line-height 1.7, max 68ch)." },
+      "label": { "displayName": "Label", "purpose": "Status lines, dates, nav, pills. 560 for interactive, 400 for meta. Tabular numerals. Never uppercase." },
+      "mono": { "displayName": "Mono", "purpose": "Inline code, code blocks, the Minecraft pane of the Bridge illustration." }
+    },
+    "shadows": [
+      { "name": "shadow-c", "value": "light-dark(rgb(12 40 26 / 0.06), rgb(0 0 0 / 0.4))", "purpose": "Contact shadow color for tiles." },
+      { "name": "edge-hi", "value": "light-dark(rgb(255 255 255 / 0), rgb(220 255 235 / 0.05))", "purpose": "Inner top highlight on tiles, dark theme only." },
+      { "name": "tile-contact", "value": "0 1px 2px var(--shadow-c), inset 0 1px 0 var(--edge-hi)", "purpose": "The only shadow in the system; every tile." }
+    ],
+    "motion": [
+      { "name": "ease-out-expo", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Every authored motion: tile lift, shot scale, sweep, bridge, rise, view transitions, theme reveal." },
+      { "name": "hover-color", "value": "200ms", "purpose": "Color and background hovers on links, pills, icon buttons." },
+      { "name": "tile-lift", "value": "transform 500ms ease-out-expo, translateY(-2px)", "purpose": "Tile hover via its stretched link; inner shot scales to 1.015 over 700ms." },
+      { "name": "radar-sweep", "value": "conic mask --sweep 0deg to 360deg, 1.8s ease-out-expo, 0.25s delay; beam fades 0.6s at 1.6s", "purpose": "The one authored moment on the Couplet shot; gated by :root:not([data-swept])." },
+      { "name": "bridge-exchange", "value": "msg-in 520ms, packet 650ms, each delayed 1300ms + step offset", "purpose": "dmcl Bridge exchange, plays once after the sweep; same data-swept gate." },
+      { "name": "rise", "value": "700ms ease-out-expo, translateY(10px) to 0, 60ms stagger", "purpose": "Page title and lead entrance." },
+      { "name": "route-transition", "value": "old root fade 160ms ease-out; new root rise 8px 420ms; shared groups 520ms", "purpose": "View-transition route changes; shot-<slug> names morph shared screenshots." },
+      { "name": "theme-reveal", "value": "clip-path circle from the toggle, 550ms ease-out-expo", "purpose": "Theme switch through a view transition; instant under reduced motion." },
+      { "name": "reduced-motion", "value": "animation: none; transition: none", "purpose": "All motion off under prefers-reduced-motion; content visible by default." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Inked pill for the main hero action.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9 19c-4 1.5-4-2-6-2.5m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12 12 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21\"/></svg>GitHub</a>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 16px; border-radius: 9999px; background: var(--text); color: var(--bg); font-family: var(--font-sans); font-size: 14px; font-weight: 560; text-decoration: none; transition: opacity 200ms; } .ds-btn-primary:hover { opacity: 0.85; } .ds-btn-primary:focus-visible { outline: 2px solid var(--leaf); outline-offset: 3px; }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Hairline pill for the secondary hero action.",
+      "html": "<a class=\"ds-btn-outline\" href=\"#\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"5\" width=\"18\" height=\"14\" rx=\"2\"/><path d=\"m3 7 9 6 9-6\"/></svg>night@n1ghtly.dev</a>",
+      "css": ".ds-btn-outline { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 16px; border-radius: 9999px; border: 1px solid var(--line-strong); background: transparent; color: var(--text); font-family: var(--font-sans); font-size: 14px; font-weight: 560; text-decoration: none; transition: background-color 200ms; } .ds-btn-outline:hover { background: var(--tile-2); } .ds-btn-outline:focus-visible { outline: 2px solid var(--leaf); outline-offset: 3px; }"
+    },
+    {
+      "name": "Link Pill",
+      "kind": "button",
+      "refersTo": "link-pill",
+      "description": "Project links and in-tile actions; turns leaf on hover.",
+      "html": "<a class=\"ds-link-pill\" href=\"#\">Open Couplet <svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M7 17 17 7M8 7h9v9\"/></svg></a>",
+      "css": ".ds-link-pill { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 14px; border-radius: 9999px; background: var(--tile-2); color: var(--text); font-family: var(--font-sans); font-size: 14px; font-weight: 560; text-decoration: none; transition: background-color 200ms, color 200ms; } .ds-link-pill:hover { background: var(--leaf); color: var(--bg); } .ds-link-pill:focus-visible { outline: 2px solid var(--leaf); outline-offset: 3px; }"
+    },
+    {
+      "name": "Header Navigation",
+      "kind": "nav",
+      "refersTo": "nav-item-active",
+      "description": "Sprout wordmark left, muted pill nav right, active item on Raised Moss.",
+      "html": "<header class=\"ds-header\"><a class=\"ds-mark\" href=\"#\"><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 21v-9M12 12c0-4 3-6 7-6 0 4-3 6-7 6ZM12 14c0-3-2.5-5-6-5 0 3 2.5 5 6 5Z\"/></svg>n1ghtly.dev</a><nav class=\"ds-nav\"><a href=\"#\" aria-current=\"page\">Projects</a><a href=\"#\">Blog</a><a href=\"#\">People</a><a href=\"#\">Bio</a></nav></header>",
+      "css": ".ds-header { display: flex; align-items: center; gap: 8px; padding: 20px 24px; font-family: var(--font-sans); color: var(--text); } .ds-mark { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 620; letter-spacing: -0.01em; color: var(--text); text-decoration: none; } .ds-mark svg { color: var(--leaf); transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-mark:hover svg { transform: rotate(-6deg); } .ds-nav { margin-left: auto; display: flex; gap: 4px; font-size: 14px; } .ds-nav a { padding: 6px 12px; border-radius: 9999px; color: var(--muted); text-decoration: none; transition: color 200ms; } .ds-nav a:hover { color: var(--text); } .ds-nav a[aria-current] { color: var(--text); background: var(--tile-2); } .ds-nav a:focus-visible { outline: 2px solid var(--leaf); outline-offset: 3px; }"
+    },
+    {
+      "name": "Bento Tile with Status Line",
+      "kind": "card",
+      "refersTo": "tile",
+      "description": "Stretched-link project tile: heading link covers the tile, status dot and year beneath, muted summary.",
+      "html": "<article class=\"ds-tile\"><h2 class=\"ds-tile-title\"><a href=\"#\" class=\"ds-stretch\">MorphicVersions</a></h2><span class=\"ds-status\"><span class=\"ds-dot ds-dot-bud\"></span>Building · 2026</span><p class=\"ds-tile-sum\">An extension for Pterodactyl Blueprint, written in PHP.</p></article>",
+      "css": ".ds-tile { position: relative; isolation: isolate; overflow: hidden; display: flex; flex-direction: column; padding: 28px; border-radius: 20px; background: var(--tile); border: 1px solid var(--line); box-shadow: 0 1px 2px var(--shadow-c), inset 0 1px 0 var(--edge-hi); font-family: var(--font-sans); color: var(--text); transition: border-color 300ms cubic-bezier(0.16, 1, 0.3, 1), transform 500ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-tile:has(.ds-stretch:hover), .ds-tile:has(.ds-stretch:focus-visible) { border-color: var(--line-strong); transform: translateY(-2px); } .ds-tile:has(.ds-stretch:focus-visible) { outline: 2px solid var(--leaf); outline-offset: 3px; } .ds-tile-title { margin: 0; font-size: 22px; line-height: 1.25; font-weight: 650; letter-spacing: -0.02em; font-stretch: 108%; } .ds-stretch { color: inherit; text-decoration: none; outline: none; } .ds-stretch::after { content: \"\"; position: absolute; inset: 0; z-index: 1; border-radius: inherit; } .ds-status { margin-top: 4px; display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; } .ds-dot { width: 6px; height: 6px; border-radius: 9999px; background: var(--leaf); } .ds-dot-bud { background: var(--bud); } .ds-tile-sum { margin: 10px 0 0; max-width: 46ch; color: var(--muted); }"
+    },
+    {
+      "name": "Shot Frame (flush bleed)",
+      "kind": "custom",
+      "refersTo": "shot-frame",
+      "description": "Real screenshot framed at 12px, bled flush to the tile's right and bottom edges.",
+      "html": "<article class=\"ds-tile-shot\"><h2>Temperature Alarms</h2><div class=\"ds-shot\"><div class=\"ds-shot-img\"></div></div></article>",
+      "css": ".ds-tile-shot { position: relative; overflow: hidden; padding: 28px; border-radius: 20px; background: var(--tile); border: 1px solid var(--line); font-family: var(--font-sans); color: var(--text); } .ds-tile-shot h2 { margin: 0; font-size: 22px; font-weight: 650; letter-spacing: -0.02em; font-stretch: 108%; } .ds-shot { margin: 16px -28px -28px 0; border: 1px solid var(--line-strong); border-radius: 12px 0 0 0; background: #0c0d0c; overflow: hidden; transform-origin: top left; transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-tile-shot:hover .ds-shot { transform: scale(1.015); } .ds-shot-img { aspect-ratio: 16 / 8; background: linear-gradient(135deg, #111a15, #0c0d0c); }"
+    },
+    {
+      "name": "Note Badge",
+      "kind": "chip",
+      "refersTo": "note-badge",
+      "description": "Hairline pill that discloses non-literal content, e.g. Illustration.",
+      "html": "<span class=\"ds-note\">Illustration</span>",
+      "css": ".ds-note { display: inline-block; padding: 4px 10px; border-radius: 9999px; border: 1px solid var(--line); font-family: var(--font-sans); font-size: 11px; color: var(--muted); }"
+    },
+    {
+      "name": "Page Title",
+      "kind": "custom",
+      "refersTo": "headline",
+      "description": "Inner-route h1 with muted lead, both rising in on load.",
+      "html": "<div class=\"ds-pagetitle\"><h1>Projects</h1><p>Things built, and things still growing. Strongest work first.</p></div>",
+      "css": ".ds-pagetitle { padding: 64px 0 56px; font-family: var(--font-sans); color: var(--text); } .ds-pagetitle h1 { margin: 0; font-size: clamp(40px, 6vw, 64px); line-height: 1.02; font-weight: 680; letter-spacing: -0.035em; font-stretch: 112%; animation: ds-rise 700ms cubic-bezier(0.16, 1, 0.3, 1) both; } .ds-pagetitle p { margin: 16px 0 0; max-width: 56ch; font-size: 17px; color: var(--muted); animation: ds-rise 700ms cubic-bezier(0.16, 1, 0.3, 1) 60ms both; } @keyframes ds-rise { from { opacity: 0; transform: translateY(10px); } } @media (prefers-reduced-motion: reduce) { .ds-pagetitle h1, .ds-pagetitle p { animation: none; } }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Working Canopy",
+    "overview": "A green-black ground with tiles set one step up, each tile holding a real thing that works: the Couplet radar, the Temperature Alarms dashboard, a labelled illustration of the dmcl chat bridge. Tile size follows importance, never equality. The page shows; it does not describe. Copy is short, set in Mona Sans at a slightly widened stretch for headings, and the only chromatic voice is one leaf green that means \"live, shipped, focused\".\n\nDensity is calm and confident: a 1200px container, 12px gutters between tiles, generous 24 to 28px inner padding, hairline borders instead of heavy shadows. Motion is exponential ease-out throughout, with exactly one authored moment per session (the radar sweep and the bridge exchange) and everything visible by default. The world follows the system theme; light mode is a green-tinted paper version of the same structure, not a different design.\n\nConfirmed rejections: the \"Hi, I'm X\" hero over a row of equal cards, neon glow, stack pills, invented claims, and stock or mocked-up imagery standing in for real work.",
+    "keyCharacteristics": [
+      "Bento grid at 12 columns; the flagship spans 7 columns by 2 rows.",
+      "Real screenshots set flush into the tile's bottom-right corner.",
+      "One accent (leaf) plus one status companion (bud); everything else is green-tinted neutral.",
+      "Mona Sans Variable for everything; width (font-stretch) and weight carry the hierarchy.",
+      "Hairline borders and tonal steps for depth; shadows barely exist.",
+      "One authored load moment per session, all motion off under reduced motion."
+    ],
+    "rules": [
+      { "name": "The One Leaf Rule", "body": "Leaf green is the only accent. It means live, shipped, or focused; it is never used as decoration, a gradient fill, or a heading color.", "section": "colors" },
+      { "name": "The Paired Token Rule", "body": "Every color is defined once as a light-dark() pair on :root. Never add a theme-specific override block; data-theme only pins color-scheme.", "section": "colors" },
+      { "name": "The Third-Party Palette Rule", "body": "Hard-coded Minecraft and Discord colors live only inside the Bridge illustration, where they mimic those products. They are not part of this palette.", "section": "colors" },
+      { "name": "The Stretch-Not-Shout Rule", "body": "Hierarchy comes from width, weight, and negative tracking within Mona Sans. Do not introduce a second display face.", "section": "typography" },
+      { "name": "The No-Eyebrow Rule", "body": "No small uppercase kicker above headings. A heading stands on its own; context goes in the status line beneath it.", "section": "typography" },
+      { "name": "The Importance-Sized Rule", "body": "A tile's span follows the project's weight. Never lay out a row of equal cards for unequal work.", "section": "layout" },
+      { "name": "The No-Glow Rule", "body": "No colored box-shadows, text glows, or neon halos. The only light effects are the static, low-alpha canopy wash behind the home hero (home only, masked out by 720px) and the transient radar beam during the one-time sweep.", "section": "elevation" },
+      { "name": "The Flush Bleed Rule", "body": "A screenshot that bleeds to a tile's edge cancels the tile's padding on those sides and drops its own radius on the bleeding corners, so the tile's 20px corner clips it. It keeps its 12px top-left corner and strong hairline where it sits inside the tile.", "section": "shapes" }
+    ],
+    "dos": [
+      "Do define every color once as a light-dark() pair and let the system theme decide; data-theme only pins it.",
+      "Do put the real artifact in the tile: an actual screenshot of the shipped product, framed at 12px and bled flush to the tile edge.",
+      "Do label anything that is not a literal screenshot with a note badge and an aria-label that says it is an illustration.",
+      "Do size tiles by importance on the 12-column grid with 12px gaps.",
+      "Do use the status line (dot plus \"Status · Year\") under every project name.",
+      "Do keep one authored motion moment per session, gated by data-swept, and switch all motion off under prefers-reduced-motion.",
+      "Do give shared imagery a shot-<slug> view-transition name so it morphs between routes."
+    ],
+    "donts": [
+      "Don't add eyebrows or uppercase kickers above headings.",
+      "Don't render tech stacks as pills or badges; the stack is one muted line of names joined by \" · \".",
+      "Don't use glow: no colored shadows, neon halos, or text glow.",
+      "Don't use stock imagery, mockups, or fabricated screenshots; if there is no real visual, the tile stays text-only.",
+      "Don't introduce a second accent; bud is a status color only.",
+      "Don't add a second display face or system display fallback as a design choice; Mona Sans carries every role.",
+      "Don't lay out equal cards for unequal work."
+    ]
+  }
+}
