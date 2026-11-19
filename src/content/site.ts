@@ -8,4 +8,5 @@ export const site = {
   email: 'night@n1ghtly.dev',
   github: 'HamzaQaz',
   githubUrl: 'https://github.com/HamzaQaz',
+  born: '2011-03-10',
 }

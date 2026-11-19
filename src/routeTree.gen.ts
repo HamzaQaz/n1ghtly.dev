@@ -16,6 +16,7 @@ import { Route as PeopleRouteImport } from './routes/people'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as RssDotxmlRouteImport } from './routes/rss[.]xml'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as SkillsRouteImport } from './routes/skills'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
@@ -54,6 +55,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SkillsRoute = SkillsRouteImport.update({
+  id: '/skills',
+  path: '/skills',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogIndexRoute = BlogIndexRouteImport.update({
   id: '/blog/',
   path: '/blog/',
@@ -73,6 +79,7 @@ export interface FileRoutesByFullPath {
   '/projects': typeof ProjectsRoute
   '/rss.xml': typeof RssDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/skills': typeof SkillsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/': typeof BlogIndexRoute
 }
@@ -84,6 +91,7 @@ export interface FileRoutesByTo {
   '/projects': typeof ProjectsRoute
   '/rss.xml': typeof RssDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/skills': typeof SkillsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog': typeof BlogIndexRoute
 }
@@ -96,6 +104,7 @@ export interface FileRoutesById {
   '/projects': typeof ProjectsRoute
   '/rss.xml': typeof RssDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/skills': typeof SkillsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/': typeof BlogIndexRoute
 }
@@ -109,6 +118,7 @@ export interface FileRouteTypes {
     | '/projects'
     | '/rss.xml'
     | '/sitemap.xml'
+    | '/skills'
     | '/blog/$slug'
     | '/blog/'
   fileRoutesByTo: FileRoutesByTo
@@ -120,6 +130,7 @@ export interface FileRouteTypes {
     | '/projects'
     | '/rss.xml'
     | '/sitemap.xml'
+    | '/skills'
     | '/blog/$slug'
     | '/blog'
   id:
@@ -131,6 +142,7 @@ export interface FileRouteTypes {
     | '/projects'
     | '/rss.xml'
     | '/sitemap.xml'
+    | '/skills'
     | '/blog/$slug'
     | '/blog/'
   fileRoutesById: FileRoutesById
@@ -143,6 +155,7 @@ export interface RootRouteChildren {
   ProjectsRoute: typeof ProjectsRoute
   RssDotxmlRoute: typeof RssDotxmlRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  SkillsRoute: typeof SkillsRoute
   BlogSlugRoute: typeof BlogSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
 }
@@ -198,6 +211,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/skills': {
+      id: '/skills'
+      path: '/skills'
+      fullPath: '/skills'
+      preLoaderRoute: typeof SkillsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/': {
       id: '/blog/'
       path: '/blog'
@@ -223,6 +243,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProjectsRoute: ProjectsRoute,
   RssDotxmlRoute: RssDotxmlRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  SkillsRoute: SkillsRoute,
   BlogSlugRoute: BlogSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
 }

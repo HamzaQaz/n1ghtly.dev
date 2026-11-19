@@ -12,7 +12,7 @@ npm test
 
 ## Write a post
 
-Add `src/content/posts/<slug>.md`:
+Copy `src/content/post-template.md` (it shows every supported format) to `src/content/posts/<slug>.md`. The short version:
 
 ```md
 ---
@@ -30,7 +30,8 @@ Add `draft: true` to keep it out of the build. The post appears at `/blog/<slug>
 
 - Name, links: `src/content/site.ts`
 - Projects: `src/content/projects.ts` (screenshots live in `public/work/`)
-- People: `src/content/people.ts`
+- People: `src/content/people.ts`. Optional `title` adds a badge; `tag` picks its style: `aura`, `gold`, `glitch`, `radiant`, `chill` or `tuff` (default `aura`)
+- Skills page: `src/content/skills.ts` (skills, experience, education, certifications, and the What's next timeline, where each step has a `stage`: `now`, `next` or `later`)
 
 ## Deploy
 

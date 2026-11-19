@@ -1,7 +1,8 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { type CSSProperties, Fragment, type PointerEvent, type ReactNode } from 'react'
+import { Age } from '~/components/age'
 import { Bridge } from '~/components/bridge'
-import { Initials, Status } from '~/components/chrome'
+import { Initials, Status, Tag } from '~/components/chrome'
 import { ArrowRight, ArrowUpRight, GitHub, Mail, Rss } from '~/components/icons'
 import { Shot } from '~/components/shot'
 import { people } from '~/content/people'
@@ -28,6 +29,7 @@ function Home() {
   const dmcl = bySlug.dmcl
   const temp = bySlug['temperature-alarms']
   const morphic = bySlug.morphicversions
+  const n1ght = bySlug['n1ght-club']
   return (
     <>
       <div className="canopy" aria-hidden />
@@ -44,7 +46,8 @@ function Home() {
           <p className="intro-fade max-w-[36ch] text-[clamp(17px,1.7vw,20px)] leading-[1.4] text-muted" style={i(2)}>
             <span className="text-ink">{site.role}.</span> {site.line}
           </p>
-          <div className="intro-fade mt-5 flex flex-wrap gap-2 text-[14px]" style={i(3)}>
+          <Age className="intro-fade mt-3" style={i(3)} />
+          <div className="intro-fade mt-5 flex flex-wrap gap-2 text-[14px]" style={i(4)}>
             <a href={site.githubUrl} className="press inline-flex h-10 items-center gap-2 rounded-full bg-ink px-4 font-[560] text-bg hover:opacity-85">
               <GitHub /> GitHub
             </a>
@@ -55,7 +58,7 @@ function Home() {
         </div>
       </section>
 
-      <section aria-label="Work" onPointerMove={spotlight} className="grid grid-cols-1 gap-3 md:grid-cols-12">
+      <section aria-label="Work" onPointerMove={spotlight} className="grid grid-cols-1 gap-3 md:grid-flow-row-dense md:grid-cols-12">
         <Tile project={couplet} n={0} className="md:col-span-12 lg:col-span-7 lg:row-span-2" external>
           <div className="mt-6 -mr-6 -mb-6 flex flex-1 flex-col sm:-mr-7 sm:-mb-7">
             <Shot
@@ -90,13 +93,26 @@ function Home() {
           <p className="mt-3 text-[13px] text-muted">Private until it ships.</p>
         </Tile>
 
-        <Plain n={4} className="md:col-span-6 lg:col-span-4" title="People I admire" to="/people">
+        <Tile project={n1ght} n={4} className="md:col-span-12 lg:col-span-7 lg:row-span-3" external>
+          <div className="mt-6 -mr-6 -mb-6 flex flex-1 flex-col sm:-mr-7 sm:-mb-7">
+            <Shot
+              image={n1ght.image!}
+              sizes="(min-width: 1024px) 720px, 100vw"
+              className="rounded-r-none rounded-b-none lg:relative lg:flex-1"
+              imgClassName="aspect-[16/10] object-left-top lg:absolute lg:inset-0 lg:aspect-auto lg:h-full"
+            />
+          </div>
+        </Tile>
+
+        <Plain n={5} className="md:col-span-6 lg:col-span-5" title="People I admire" to="/people">
           <ul className="mt-4 space-y-3">
             {people.map((p) => (
               <li key={p.name} className="flex items-start gap-3">
                 <Initials name={p.name} />
                 <div>
-                  <p className="font-[600]">{p.name} <span className="font-normal text-muted">· {p.role}</span></p>
+                  <p className="font-[600]">
+                    {p.name} {p.title && <Tag variant={p.tag}>{p.title}</Tag>} <span className="font-normal whitespace-nowrap text-muted">· {p.role}</span>
+                  </p>
                   <p className="text-muted">{p.note}</p>
                 </div>
               </li>
@@ -104,7 +120,7 @@ function Home() {
           </ul>
         </Plain>
 
-        <Plain n={5} className="md:col-span-12 lg:col-span-3" title="Writing" to="/blog">
+        <Plain n={6} className="md:col-span-12 lg:col-span-5" title="Writing" to="/blog">
           {posts.length ? (
             <ul className="mt-5 space-y-3">
               {posts.slice(0, 3).map((p) => (

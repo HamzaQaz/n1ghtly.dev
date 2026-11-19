@@ -16,3 +16,8 @@ test('rejects missing title or bad date', () => {
   expect(() => parsePost('x', '---\ntitle: X\ndate: 24/10/2026\n---\n')).toThrow(/date/)
   expect(() => parsePost('x', 'no frontmatter')).toThrow(/frontmatter/)
 })
+
+test('post template stays valid', async () => {
+  const raw = (await import('./post-template.md?raw')).default
+  expect(parsePost('template', raw)).toMatchObject({ title: 'Your post title', draft: true })
+})

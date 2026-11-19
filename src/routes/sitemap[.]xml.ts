@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { posts } from '~/content/posts'
 import { site } from '~/content/site'
 
-const paths = ['/', '/projects', '/blog', '/people', '/bio', ...posts.map((p) => `/blog/${p.slug}`)]
+const paths = ['/', '/projects', '/blog', '/people', '/skills', '/bio', ...posts.map((p) => `/blog/${p.slug}`)]
 
 export const Route = createFileRoute('/sitemap.xml')({
   server: {

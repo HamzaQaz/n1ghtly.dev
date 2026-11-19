@@ -1,49 +1,66 @@
 import { Link } from '@tanstack/react-router'
-import type { MouseEvent } from 'react'
+import { type MouseEvent, type PointerEvent, useRef } from 'react'
 import { site } from '~/content/site'
+import type { TagStyle } from '~/content/people'
 import type { Status as S } from '~/content/projects'
-import { GitHub, Mail, Moon, Rss, Sprout, Sun } from './icons'
+import { Bolt, Burst, Crown, GitHub, Mail, Moon, Rss, Signal, Smile, Sparkle, Sprout, Sun } from './icons'
 
 const nav = [
   { to: '/projects', label: 'Projects' },
   { to: '/blog', label: 'Blog' },
   { to: '/people', label: 'People' },
+  { to: '/skills', label: 'Skills' },
   { to: '/bio', label: 'Bio' },
 ] as const
 
 export function Header() {
+  // A soft pill that glides to whichever nav link the pointer is over.
+  const hover = useRef<HTMLSpanElement>(null)
+  const track = (e: PointerEvent<HTMLElement>) => {
+    const link = (e.target as HTMLElement).closest('a')
+    const pill = hover.current
+    if (!pill || !link || e.pointerType === 'touch') return
+    pill.style.setProperty('--hx', `${link.offsetLeft}px`)
+    pill.style.setProperty('--hw', `${link.offsetWidth}px`)
+    pill.dataset.on = ''
+  }
+  const leave = () => hover.current && delete hover.current.dataset.on
   return (
-    <header className="mx-auto flex max-w-[1200px] flex-wrap items-center gap-y-2 px-4 py-4 sm:flex-nowrap sm:px-6 sm:py-5 [view-transition-name:site-header]">
-      <Link to="/" className="group flex items-center gap-2 text-[15px] font-[620] tracking-[-0.01em]" aria-label={`${site.domain}, home`}>
-        <Sprout width={22} height={22} className="text-leaf transition-transform duration-500 ease-out-expo group-hover:-rotate-6" />
-        {site.domain}
-      </Link>
-      <nav aria-label="Main" className="isolate order-3 -ml-2.5 flex w-full items-center gap-0.5 text-[14px] sm:order-2 sm:ml-auto sm:w-auto sm:gap-1">
-        {nav.map((n) => (
-          <Link
-            key={n.to}
-            to={n.to}
-            className="relative rounded-full px-2.5 py-1.5 text-muted transition-colors duration-200 hover:text-ink sm:px-3"
-            activeProps={{ className: 'text-ink!', 'aria-current': 'page' }}
-          >
-            {({ isActive }) => (
-              <>
-                {/* One pill that slides between links on route change (view transition). */}
-                {isActive && <span className="nav-pill absolute inset-0 -z-10 rounded-full bg-tile-2" aria-hidden />}
-                {n.label}
-              </>
-            )}
-          </Link>
-        ))}
-      </nav>
-      <ThemeToggle />
-    </header>
+    <div className="site-bar sticky top-0 z-40 [view-transition-name:site-header]">
+      <header className="mx-auto flex max-w-[1200px] flex-wrap items-center gap-y-2 px-4 py-4 sm:flex-nowrap sm:px-6 sm:py-5">
+        <Link to="/" className="group flex items-center gap-2 text-[15px] font-[620] tracking-[-0.01em]" aria-label={`${site.domain}, home`}>
+          <Sprout width={22} height={22} className="text-leaf transition-transform duration-500 ease-out-expo group-hover:-rotate-6" />
+          {site.domain}
+        </Link>
+        <nav aria-label="Main" onPointerOver={track} onPointerLeave={leave} className="relative isolate order-3 -ml-2.5 flex w-full items-center gap-0.5 text-[14px] sm:order-2 sm:ml-auto sm:w-auto sm:gap-1">
+          <span ref={hover} className="nav-hover" aria-hidden />
+          {nav.map((n) => (
+            <Link
+              key={n.to}
+              to={n.to}
+              className="relative rounded-full px-2.5 py-1.5 text-muted transition-colors duration-200 hover:text-ink sm:px-3"
+              activeProps={{ className: 'text-ink!', 'aria-current': 'page' }}
+            >
+              {({ isActive }) => (
+                <>
+                  {/* One pill that slides between links on route change (view transition). */}
+                  {isActive && <span className="nav-pill absolute inset-0 -z-10 rounded-full bg-tile-2" aria-hidden />}
+                  {n.label}
+                </>
+              )}
+            </Link>
+          ))}
+        </nav>
+        <ThemeToggle />
+      </header>
+    </div>
   )
 }
 
 function ThemeToggle() {
   function toggle(e: MouseEvent<HTMLButtonElement>) {
     const root = document.documentElement
+    root.classList.add('themed') // the icon spins in only after a real switch, not on every load
     const current = root.dataset.theme ?? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
     const next = current === 'dark' ? 'light' : 'dark'
     const apply = () => {
@@ -91,6 +108,9 @@ export function Footer() {
           <IconLink href={site.githubUrl} label="GitHub"><GitHub /></IconLink>
           <IconLink href={`mailto:${site.email}`} label="Email"><Mail /></IconLink>
           <IconLink href="/rss.xml" label="RSS feed"><Rss /></IconLink>
+          <button type="button" onClick={() => dispatchEvent(new Event('consent'))} className="ml-3 text-[13px] transition-colors hover:text-ink">
+            Cookies
+          </button>
           <span className="ml-3 text-[13px]">© {new Date().getFullYear()} {site.name}</span>
         </div>
       </div>
@@ -124,6 +144,19 @@ export function PageTitle({ title, children }: { title: string; children?: React
       <h1 className="rise text-[clamp(40px,6vw,64px)] leading-[1.02] font-[680] tracking-[-0.035em] [font-stretch:112%]">{title}</h1>
       {children && <div className="rise mt-4 max-w-[56ch] text-[17px] text-muted [--i:1]">{children}</div>}
     </div>
+  )
+}
+
+const tagIcons = { aura: Sparkle, gold: Crown, glitch: Signal, radiant: Burst, chill: Smile, tuff: Bolt }
+
+/** A person's earned title, drawn in one of the tag styles from styles.css. */
+export function Tag({ children, variant = 'aura' }: { children: string; variant?: TagStyle }) {
+  const Icon = tagIcons[variant]
+  return (
+    <span className={`tag tag-${variant}`}>
+      <Icon className="tag-icon" />
+      <span className="tag-text" data-text={children}>{children}</span>
+    </span>
   )
 }
 

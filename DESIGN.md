@@ -208,7 +208,7 @@ Depth is tonal and hairline, not shadowed. Tiles sit one tonal step above the gr
 - **Tile contact** (`box-shadow: 0 1px 2px var(--shadow-c), inset 0 1px 0 var(--edge-hi)`): every tile. `--shadow-c` is rgb(12 40 26 / 0.06) light, rgb(0 0 0 / 0.4) dark; `--edge-hi` is transparent light, rgb(220 255 235 / 0.05) dark.
 
 ### Named Rules
-**The No-Glow Rule.** No colored box-shadows, text glows, or neon halos. The only light effects are the static, low-alpha canopy wash behind the home hero (home only, masked out by 720px) and the transient radar beam during the one-time sweep.
+**The No-Glow Rule.** No colored box-shadows, text glows, or neon halos. The only light effects are the static, low-alpha canopy wash behind the home hero (home only, masked out by 720px) and the transient radar beam during the one-time sweep. Two exceptions the user asked for by name: the ambient fireflies (a background layer, never on a UI element) and the earned titles on People.
 
 ## Shapes
 
@@ -235,7 +235,7 @@ Soft, nested rounding. Tiles are 20px; anything framed inside a tile (screenshot
 - **Shot frame (`Shot` component):** 12px radius, strong hairline, Shot Ground behind the image, `object-cover`, responsive `srcset` (1200w and 2400w). The image stays hidden behind a slow shimmer until it has fully loaded (the boot script sets `data-loaded`), then fades in from 14px blur and 1.04 scale. Shots never carry view-transition names: images do not morph between routes.
 
 ### Navigation
-- **Header:** sprout mark in leaf (tilts -6deg on hover) plus the domain wordmark at 15px/620; nav at 14px muted pills, active item inked on Raised Moss with `aria-current`; the theme toggle shows the theme you would switch to. Under 640px the nav takes its own row. The header has its own view-transition name so it holds still across routes.
+- **Header:** sprout mark in leaf (tilts -6deg on hover) plus the domain wordmark at 15px/620; nav at 14px muted pills, active item inked on Raised Moss with `aria-current`; the theme toggle shows the theme you would switch to. Under 640px the nav takes its own row. The header sits in a full-width sticky bar (`.site-bar`) that frosts over (76% ground, 16px backdrop blur, hairline) across the first 80px of scroll, driven by `animation-timeline: scroll()`; without scroll timelines or under reduced motion it is simply always frosted. A hover pill glides between nav links on the spring, under the active pill. The bar has its own view-transition name so it holds still across routes.
 - **Footer:** hairline rule, a 22px/600 widened invitation line, the email as an underlined link, muted icon buttons, and the copyright at 13px.
 
 ### Status Line
@@ -250,10 +250,13 @@ A labelled `figure` showing a Minecraft chat pane and a Discord channel pane joi
 ### Motion grammar
 - **Easing:** `--ease-out-expo` (`cubic-bezier(0.16, 1, 0.3, 1)`) for reveals and fades; `--ease-spring` (a `linear()` spring with about 2% overshoot) for anything the hand touches: tile lift, button press (scale 0.96), arrow nudges, the nav pill.
 - **First visit (once per session):** the name rises word by word out of a 12px blur, the role line and buttons follow, and tiles fade up in a 70ms stagger. When the Couplet screenshot has loaded, one conic-mask radar sweep reveals it (1.9s) with a fading leaf beam, then the Bridge exchange plays. Gated by `:root:not([data-swept])`; `data-swept` is set when the last Bridge line lands or on the first navigation, and remembered in sessionStorage.
+- **Ambient:** fireflies (`Fireflies`, one fixed canvas behind everything): 10 to 34 depending on viewport, drifting slowly, mostly dim with a short bright pulse each cycle, scattering from the pointer and sliding with scroll by depth. Light mode draws pale leaf pollen instead, without glow. Under reduced motion it is one still frame.
+- **Earned titles:** a People entry may carry a `title`, drawn as a pill in one of six `tag` styles, each with its own authored SVG icon: `aura` (spinning leaf, violet and bud ring, pulsing glow, text shine, twinkling sparkle), `gold` (metallic fill, a glint sweeping across), `glitch` (dashed pill; every 2.6s the words stutter and split red and cyan while the signal bars drop), `radiant` (dark pill with a gold rim, light rays turning behind it) `chill` (pastel gradient drifting, the pill lazily tilting) and `tuff` (wide uppercase on brushed steel; every 3.4s it lifts, slams down with a shake and sends out a ring). All static under reduced motion.
+- **Skills page:** sections (Skills, Experience, Education, Certifications, What's next) separated by hairlines, the section name in a left column on wide screens. Skills are hairline chips on Moss; entries are rows with the title left and muted meta right. What's next is a vertical timeline. Each step has a 14px dot on a 2px line: Now is solid leaf with a slow ping, Next is half bud, Later is a hollow muted ring, and the closing "And more" step is dashed and faded. A leaf fill draws down each segment as its step scrolls in (`view-timeline`); without scroll timelines or under reduced motion the line is simply full.
 - **Scroll:** project sections and people cards fade up as they enter, driven by `animation-timeline: view()` (no JS; browsers without it show them static).
-- **Routes:** view transitions on `main` (`page`): the old page fades up and blurs out in 180ms, the new page rises 18px out of an 8px blur over 620ms. The header holds still; the active nav pill (`nav-pill`) slides between links on the spring.
+- **Routes:** view transitions on `main` (`page`): the old page fades up and blurs out in 160ms, the new page rises 18px out of an 8px blur over 480ms. The header holds still; the active nav pill (`nav-pill`) slides between links on the spring.
 - **Theme:** a circular clip-path reveal from the toggle (550ms ease-out-expo). During the switch, every other transition and view-transition name is suspended so only the circle moves; the toggle icon spins in on the spring.
-- **Reduced motion:** all animations, transitions, and view-transition animations are off, the sweep and its beam are not drawn, and the theme switches instantly. Content is visible by default with or without motion.
+- **Reduced motion:** nothing moves: animations, view-transition animations and transform transitions are off, the sweep and its beam are not drawn, hover lifts are dropped, and the theme switches instantly. Colour and opacity transitions stay, so hover, focus and image loading still read. Content is visible by default with or without motion.
 
 ## Do's and Don'ts
 
@@ -272,7 +275,7 @@ A labelled `figure` showing a Minecraft chat pane and a Discord channel pane joi
 ### Don't:
 - **Don't** add eyebrows or uppercase kickers above headings.
 - **Don't** render tech stacks as pills or badges; the stack is one muted line of names joined by " · ".
-- **Don't** use glow: no colored shadows, neon halos, or text glow.
+- **Don't** use glow on UI: no colored shadows, neon halos, or text glow (the fireflies and earned titles are the named exceptions).
 - **Don't** use stock imagery, mockups, or fabricated screenshots; if there is no real visual, the tile stays text-only.
 - **Don't** introduce a second accent; bud is a status color only.
 - **Don't** add a second display face or system display fallback as a design choice; Mona Sans carries every role.

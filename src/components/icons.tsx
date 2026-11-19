@@ -38,6 +38,40 @@ export const GitHub = (p: P) => (
   </svg>
 )
 /** The site mark: a two-leaf sprout. */
+export const Sparkle = (p: P) => (
+  <svg {...base({ viewBox: '0 0 16 16', fill: 'currentColor', stroke: 'none', ...p })}>
+    <path d="M8 0c.6 4.6 3.4 7.4 8 8-4.6.6-7.4 3.4-8 8-.6-4.6-3.4-7.4-8-8 4.6-.6 7.4-3.4 8-8Z" />
+  </svg>
+)
+export const Crown = (p: P) => (
+  <svg {...base({ viewBox: '0 0 16 16', fill: 'currentColor', stroke: 'none', ...p })}>
+    <path d="M1.5 12.5 2.5 5l3.3 2.8L8 3l2.2 4.8L13.5 5l1 7.5Z" />
+  </svg>
+)
+export const Burst = (p: P) => (
+  <svg {...base({ viewBox: '0 0 16 16', fill: 'currentColor', stroke: 'none', ...p })}>
+    <path d="M8 0l1.38 4.67 4.28-2.33-2.33 4.28L16 8l-4.67 1.38 2.33 4.28-4.28-2.33L8 16l-1.38-4.67-4.28 2.33 2.33-4.28L0 8l4.67-1.38-2.33-4.28 4.28 2.33Z" />
+  </svg>
+)
+export const Bolt = (p: P) => (
+  <svg {...base({ viewBox: '0 0 16 16', fill: 'currentColor', stroke: 'none', ...p })}>
+    <path d="M9.6 0 2 9.2h5L6 16l8-9.6H9Z" />
+  </svg>
+)
+export const Signal = (p: P) => (
+  <svg {...base({ strokeWidth: 2.6, ...p })}>
+    <path d="M2 8.8a15 15 0 0 1 20 0" />
+    <path d="M5.5 12.5a10 10 0 0 1 13 0" />
+    <path d="M9 16.2a5 5 0 0 1 6 0" />
+    <path d="M12 20h.01" />
+  </svg>
+)
+export const Smile = (p: P) => (
+  <svg {...base({ strokeWidth: 2.4, ...p })}>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M8.5 14.5a4 4 0 0 0 7 0M9 9.5h.01M15 9.5h.01" />
+  </svg>
+)
 export const Sprout = (p: P) => (
   <svg {...base({ ...p, viewBox: '0 0 24 24' })}>
     <path d="M12 21v-9" />

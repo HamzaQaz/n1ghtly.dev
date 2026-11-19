@@ -48,7 +48,7 @@ html {
   scrollbar-color: var(--line-strong) transparent;
   accent-color: var(--leaf);
   caret-color: var(--leaf);
-  scroll-padding-top: 5rem;
+  scroll-padding-top: 7rem; /* clears the sticky header, two rows on phones */
 }
 body { min-height: 100dvh; }
 ::selection { background: var(--selection); color: var(--text); }
@@ -81,6 +81,37 @@ p { text-wrap: pretty; }
     radial-gradient(16% 14% at 40% 22%, var(--b), transparent 70%);
   mask-image: linear-gradient(to bottom, #000 30%, transparent);
 }
+
+/* ---------- header: sticks, and frosts over once the page scrolls (scroll-linked, no JS) ---------- */
+.site-bar {
+  --bar: color-mix(in oklab, var(--bg) 76%, transparent);
+  border-bottom: 1px solid transparent;
+}
+@keyframes bar-in {
+  to { background-color: var(--bar); border-bottom-color: var(--line); backdrop-filter: blur(16px) saturate(1.5); }
+}
+@supports (animation-timeline: scroll()) {
+  .site-bar { animation: bar-in linear both; animation-timeline: scroll(); animation-range: 0 80px; }
+}
+@supports not (animation-timeline: scroll()) {
+  .site-bar { background-color: var(--bar); border-bottom-color: var(--line); backdrop-filter: blur(16px) saturate(1.5); }
+}
+
+/* The hover pill glides between nav links on the spring; the active pill sits above it. */
+.nav-hover {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  z-index: -10;
+  width: var(--hw, 0);
+  transform: translateX(var(--hx, 0));
+  border-radius: 999px;
+  background: var(--tile-2);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 250ms var(--ease-out-expo), transform 450ms var(--ease-spring), width 450ms var(--ease-spring);
+}
+.nav-hover[data-on] { opacity: 0.6; }
 
 /* ---------- tiles ---------- */
 .tile {
@@ -197,7 +228,7 @@ p { text-wrap: pretty; }
 @media (prefers-reduced-motion: no-preference) {
   :root:not([data-swept]) .intro-word { animation: word-in 1s var(--ease-out-expo) both; animation-delay: calc(var(--i) * 110ms); }
   :root:not([data-swept]) .intro-fade { animation: fade-up 900ms var(--ease-out-expo) both; animation-delay: calc(var(--i) * 90ms + 120ms); }
-  :root:not([data-swept]) .intro-tile { animation: fade-up 1s var(--ease-out-expo) both; animation-delay: calc(var(--i) * 70ms + 380ms); }
+  :root:not([data-swept]) .intro-tile { animation: fade-up 850ms var(--ease-out-expo) both; animation-delay: calc(var(--i) * 70ms + 380ms); }
 
   :root.js:not([data-swept]) .bridge.intro [data-step] { opacity: 0; }
   :root:not([data-swept]):has(.sweep img[data-loaded]) .bridge.intro [data-step] {
@@ -222,11 +253,11 @@ p { text-wrap: pretty; }
 /* ---------- route and theme transitions ---------- */
 main { view-transition-name: page; }
 .nav-pill { view-transition-name: nav-pill; }
-::view-transition-group(*) { animation-duration: 560ms; animation-timing-function: var(--ease-out-expo); }
+::view-transition-group(*) { animation-duration: 480ms; animation-timing-function: var(--ease-out-expo); }
 ::view-transition-old(root) { animation: 200ms ease-out both vt-fade-out; }
 ::view-transition-new(root) { animation: 300ms ease-out both vt-fade-in; }
-::view-transition-old(page) { animation: 180ms ease-in both page-out; }
-::view-transition-new(page) { animation: 620ms var(--ease-out-expo) 60ms both page-in; }
+::view-transition-old(page) { animation: 160ms ease-in both page-out; }
+::view-transition-new(page) { animation: 480ms var(--ease-out-expo) 40ms both page-in; }
 ::view-transition-group(site-header) { z-index: 3; }
 ::view-transition-group(nav-pill) { z-index: 2; animation-timing-function: var(--ease-spring); animation-duration: 600ms; }
 ::view-transition-new(nav-pill), ::view-transition-old(nav-pill) { height: 100%; }
@@ -238,12 +269,12 @@ main { view-transition-name: page; }
 /* Theme switch: one circular reveal of the whole page, nothing else moving. */
 html.theme-switch main,
 html.theme-switch .nav-pill,
-html.theme-switch header { view-transition-name: none !important; }
+html.theme-switch .site-bar { view-transition-name: none !important; }
 html.theme-switch *, html.theme-switch *::before, html.theme-switch *::after { transition: none !important; }
 html.theme-switch::view-transition-old(root),
 html.theme-switch::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
 
-.theme-sun, .theme-moon { animation: icon-in 600ms var(--ease-spring) both; }
+:root.themed .theme-sun, :root.themed .theme-moon { animation: icon-in 600ms var(--ease-spring) both; }
 @keyframes icon-in { from { opacity: 0; transform: rotate(-90deg) scale(0.5); } }
 
 .rise { animation: fade-up 800ms var(--ease-out-expo) both; animation-delay: calc(var(--i, 0) * 80ms); }
@@ -262,9 +293,266 @@ html.theme-switch::view-transition-new(root) { animation: none; mix-blend-mode: 
 .prose blockquote { border-left: 1px solid var(--line-strong); padding-left: 1em; color: var(--muted); }
 .prose img { border-radius: 12px; }
 
+/* ---------- People tags: earned titles, each in its own style ----------
+   An exception to the No-Glow rule, asked for by name. Glows sit at z-index -1: behind the pill, above the tile (tiles isolate). */
+@property --aura {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 0deg;
+}
+.tag {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  vertical-align: 0.1em;
+  padding: 1px 9px 1px 7px;
+  border: 1.5px solid transparent;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+.tag-icon { flex: none; width: 0.95em; height: 0.95em; }
+.tag-text { position: relative; }
+@keyframes aura-spin { to { --aura: 360deg; } }
+@keyframes shine { from { background-position: 100% 0; } to { background-position: -150% 0; } }
+@keyframes twinkle { 0%, 100% { opacity: 0.5; transform: scale(0.8) rotate(0deg); } 50% { opacity: 1; transform: scale(1.15) rotate(90deg); } }
+
+/* aura: a spinning colour ring, a pulsing glow, a shine across the words, a twinkling sparkle */
+.tag-aura {
+  --ring: conic-gradient(from var(--aura), var(--leaf), #a78bfa, var(--bud), #a78bfa, var(--leaf));
+  background: linear-gradient(var(--tile-2), var(--tile-2)) padding-box, var(--ring) border-box;
+  animation: aura-spin 3.2s linear infinite;
+}
+.tag-aura::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--ring);
+  filter: blur(9px);
+  opacity: 0.45;
+  animation: aura-pulse 2.4s ease-in-out infinite alternate;
+}
+.tag-aura .tag-text {
+  background: linear-gradient(100deg, var(--text) 35%, var(--leaf) 50%, var(--text) 65%) 0 0 / 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shine 2.8s linear infinite;
+}
+.tag-aura .tag-icon { color: var(--bud); animation: twinkle 1.8s ease-in-out infinite; }
+@keyframes aura-pulse { from { opacity: 0.25; transform: scale(0.96); } to { opacity: 0.6; transform: scale(1.06); } }
+
+/* gold: polished metal, with a glint that sweeps across every few seconds */
+.tag-gold {
+  overflow: hidden;
+  color: #3b2905;
+  border-color: #b8862b;
+  background: linear-gradient(135deg, #fbefb8, #e2b443 38%, #fff3c4 52%, #c9952f 78%, #f3d77a);
+  box-shadow: 0 1px 8px rgb(214 168 60 / 0.35);
+}
+.tag-gold::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 35%, rgb(255 255 255 / 0.85) 50%, transparent 65%) 150% 0 / 250% 100% no-repeat;
+  animation: glint 3.6s ease-in-out infinite;
+}
+.tag-gold .tag-icon { color: #6b4a0e; }
+@keyframes glint { 0%, 55% { background-position: 150% 0; } 85%, 100% { background-position: -60% 0; } }
+
+/* glitch: a lag spike every few seconds; the words stutter and split red and cyan, and the signal drops */
+.tag-glitch { border: 1.5px dashed var(--line-strong); background: var(--tile-2); }
+.tag-glitch .tag-text { animation: lag 2.6s steps(1) infinite; }
+.tag-glitch .tag-text::before,
+.tag-glitch .tag-text::after {
+  content: attr(data-text) / "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+.tag-glitch .tag-text::before { color: #ff3b6b; animation: split-a 2.6s steps(1) infinite; }
+.tag-glitch .tag-text::after { color: #22d3ee; animation: split-b 2.6s steps(1) infinite; }
+.tag-glitch .tag-icon { color: var(--muted); }
+.tag-glitch .tag-icon path:nth-child(1) { animation: signal 2.6s steps(1) infinite; }
+.tag-glitch .tag-icon path:nth-child(2) { animation: signal 2.6s steps(1) 0.1s infinite; }
+@keyframes lag {
+  0%, 72%, 90%, 100% { transform: none; }
+  74% { transform: translateX(2px); }
+  77% { transform: translateX(-1px); }
+  80% { transform: translateX(1px) skewX(-8deg); }
+  84% { transform: none; }
+  86% { transform: translateX(-2px); }
+}
+@keyframes split-a {
+  0%, 72%, 90%, 100% { opacity: 0; transform: none; clip-path: none; }
+  74% { opacity: 0.9; transform: translateX(-2px); clip-path: inset(0 0 55% 0); }
+  80% { opacity: 0.9; transform: translateX(2px); clip-path: inset(45% 0 0 0); }
+  86% { opacity: 0.9; transform: translateX(-1px); clip-path: inset(20% 0 40% 0); }
+}
+@keyframes split-b {
+  0%, 72%, 90%, 100% { opacity: 0; transform: none; clip-path: none; }
+  74% { opacity: 0.9; transform: translateX(2px); clip-path: inset(50% 0 0 0); }
+  80% { opacity: 0.9; transform: translateX(-2px); clip-path: inset(0 0 60% 0); }
+  86% { opacity: 0.9; transform: translateX(1px); clip-path: inset(60% 0 10% 0); }
+}
+@keyframes signal { 0%, 70%, 92%, 100% { opacity: 1; } 72%, 90% { opacity: 0.15; } }
+
+/* radiant: rays of light turning slowly behind a gold-rimmed pill */
+.tag-radiant {
+  color: #ffd76a;
+  border-color: #ffd76a;
+  background: linear-gradient(#2a2108, #171204);
+  animation: aura-spin 10s linear infinite;
+}
+.tag-radiant::after {
+  content: "";
+  position: absolute;
+  inset: -9px -12px;
+  z-index: -1;
+  background: repeating-conic-gradient(from var(--aura), rgb(255 214 102 / 0.6) 0deg 5deg, transparent 5deg 20deg);
+  mask: radial-gradient(closest-side, #000 25%, transparent);
+}
+.tag-radiant .tag-text {
+  background: linear-gradient(90deg, #ffd04d 30%, #fff6d5 50%, #ffd04d 70%) 0 0 / 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shine 3.2s linear infinite;
+}
+.tag-radiant .tag-icon { animation: twinkle 2.2s ease-in-out infinite; }
+
+/* chill: pastel colours drifting while the tag lazily tilts, like it could not care less */
+.tag-chill {
+  color: #23203f;
+  background: linear-gradient(90deg, #c4b5fd, #a5f3fc, #bbf7d0, #fbcfe8) 0 0 / 400% 100%;
+  transform-origin: 30% 60%;
+  animation: drift 8s ease-in-out infinite alternate, tilt 3.4s ease-in-out infinite alternate;
+}
+.tag-chill .tag-icon { color: #4c3d99; }
+@keyframes drift { to { background-position: 100% 0; } }
+@keyframes tilt { from { transform: rotate(-4deg); } to { transform: rotate(3deg) translateY(-1px); } }
+
+/* tuff: brushed steel that slams down every few seconds and sends out a shockwave */
+.tag-tuff {
+  color: #f1f4f7;
+  border-color: #8d98a4;
+  background:
+    repeating-linear-gradient(90deg, rgb(255 255 255 / 0.06) 0 1px, transparent 1px 3px),
+    linear-gradient(#66717d, #2c333b 55%, #444d57);
+  box-shadow: inset 0 1px rgb(255 255 255 / 0.3), 0 2px 4px rgb(0 0 0 / 0.35);
+  font-size: 10.5px;
+  font-weight: 760;
+  font-stretch: 125%;
+  line-height: 1.75;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 0 rgb(0 0 0 / 0.5);
+  animation: slam 3.4s infinite;
+}
+.tag-tuff::after {
+  content: "";
+  position: absolute;
+  inset: -1.5px;
+  z-index: -1;
+  border: 1.5px solid #aab4bf;
+  border-radius: inherit;
+  opacity: 0;
+  pointer-events: none;
+  animation: shock 3.4s ease-out infinite;
+}
+@keyframes slam {
+  0%, 60% { transform: none; animation-timing-function: cubic-bezier(0.2, 0.7, 0.3, 1); }
+  70% { transform: translateY(-3px) scale(1.18) rotate(-2deg); animation-timing-function: cubic-bezier(0.7, 0, 1, 0.6); }
+  75% { transform: scale(0.94); animation-timing-function: ease-out; }
+  78% { transform: translateX(-1.5px) scale(1.01); }
+  81% { transform: translateX(1.5px); }
+  84% { transform: translateX(-0.7px); }
+  87%, 100% { transform: none; }
+}
+@keyframes shock {
+  0%, 74.9% { opacity: 0; transform: none; }
+  75% { opacity: 0.9; transform: none; }
+  100% { opacity: 0; transform: scale(1.18, 1.9); }
+}
+
+/* ---------- Roadmap: a timeline whose line draws down as each step scrolls in ---------- */
+.road { --dot: 14px; --dot-y: 0.6rem; }
+.road > li { position: relative; padding: 0 0 2.75rem 2.75rem; }
+.road > li:last-child { padding-bottom: 0; }
+/* The line from each dot to the next: a track, with a leaf fill over it. */
+.road > li::before,
+.road > li::after {
+  content: "";
+  position: absolute;
+  top: var(--dot-y);
+  bottom: calc(var(--dot-y) * -1);
+  left: calc(var(--dot) / 2 - 1px);
+  width: 2px;
+  border-radius: 2px;
+}
+.road > li::before { background: var(--line-strong); }
+.road > li::after { background: var(--leaf); transform-origin: top; }
+.road > li:last-child::before,
+.road > li:last-child::after,
+.road > li:has(+ .road-more)::after { content: none; }
+.road > li:has(+ .road-more)::before { background: repeating-linear-gradient(var(--line-strong) 0 4px, transparent 4px 9px); }
+.road-stage { margin-bottom: 0.3rem; font-size: 12px; font-weight: 600; line-height: 1.6; letter-spacing: 0.08em; text-transform: uppercase; }
+.road-dot {
+  position: absolute;
+  top: calc(var(--dot-y) - var(--dot) / 2);
+  left: 0;
+  z-index: 1;
+  width: var(--dot);
+  height: var(--dot);
+  border: 2px solid var(--muted);
+  border-radius: 50%;
+  background: var(--bg);
+}
+.road-dot[data-stage="now"] { border-color: var(--leaf); background: var(--leaf); }
+.road-dot[data-stage="next"] { border-color: var(--bud); background: linear-gradient(90deg, var(--bud) 50%, var(--bg) 50%); }
+.road-more .road-dot { border-style: dashed; border-color: var(--line-strong); }
+/* Now dots ping, out of step with each other. */
+.road-dot[data-stage="now"]::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border: 2px solid var(--leaf);
+  border-radius: 50%;
+  opacity: 0;
+  animation: ping 2.4s var(--ease-out-expo) infinite;
+  animation-delay: calc(var(--i) * 0.8s);
+}
+@keyframes ping { from { opacity: 0.6; transform: none; } to { opacity: 0; transform: scale(2.6); } }
+@keyframes line-grow { from { transform: scaleY(0); } }
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .road > li { view-timeline: --step block; }
+    .road > li::after { animation: line-grow linear both; animation-timeline: --step; animation-range: entry 0% entry 100%; }
+  }
+}
+
+/* Reduced motion: nothing moves, but colour and opacity changes stay, so hover, focus and loading still read. */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation: none !important; transition: none !important; }
+  *, *::before, *::after {
+    animation: none !important;
+    transition-property: color, background-color, border-color, text-decoration-color, opacity !important;
+  }
   ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+  .tile:has(.stretch:hover),
+  .tile:has(.stretch:focus-visible),
+  .tile:has(.stretch:hover) .shot,
+  .tile:has(.stretch:hover) .tile-arrow,
+  .nudge:hover svg { transform: none; }
+  .site-bar { background-color: var(--bar); border-bottom-color: var(--line); backdrop-filter: blur(16px) saturate(1.5); }
 }
 
 /* Theme toggle shows the theme you would switch to. */

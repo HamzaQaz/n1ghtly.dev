@@ -42,6 +42,24 @@ export const projects: Project[] = [
     },
   },
   {
+    slug: 'n1ght-club',
+    name: 'n1ght.club',
+    year: 2026,
+    status: 'shipped',
+    summary: 'A Discord music bot where the whole player is one message you steer with buttons.',
+    details:
+      "It plays from Spotify, SoundCloud, YouTube and more, with one shared queue for the voice channel. There's also a website dashboard and synced lyrics you can open in the call.",
+    stack: ['TypeScript', 'discord.js', 'Lavalink', 'React'],
+    links: [{ label: 'Open n1ght.club', href: 'https://n1ght.club' }],
+    image: {
+      src: '/work/n1ght-club.webp',
+      small: '/work/n1ght-club-sm.webp',
+      alt: "n1ght.club's dashboard demo: the queue as a row of covers, and under it the playing song's controls and who is in the voice channel.",
+      width: 2400,
+      height: 1500,
+    },
+  },
+  {
     slug: 'dmcl',
     name: 'dmcl',
     year: 2026,
@@ -59,8 +77,8 @@ export const projects: Project[] = [
     status: 'shipped',
     summary: 'Watches ESP8266 temperature probes and emails you when a reading goes out of range.',
     details:
-      'I reworked the web interface and SQL database for these probes in React. NodeMCU boards with DS18B20 sensors report every 30 minutes. The app keeps track of devices and locations, stores the history, and sends an email when a reading crosses its threshold.',
-    stack: ['React 18', 'TypeScript', 'Vite', 'Tailwind', 'Express', 'MariaDB'],
+      'I reworked the web interface and SQL database for these probes in React. NodeMCU boards with DHT11 sensors report every 30 seconds. The app keeps track of devices and locations, stores the history, and sends an email when a reading crosses its threshold.',
+    stack: ['React 19', 'TypeScript', 'Vite', 'Tailwind', 'Express', 'MySQL'],
     links: [{ label: 'Source on GitHub', href: 'https://github.com/HamzaQaz/Temperature-Alarms-React' }],
     image: {
       src: '/work/temperature-alarms.webp',
