@@ -60,6 +60,17 @@ export const projects: Project[] = [
     },
   },
   {
+    slug: 'outlier',
+    name: 'OUTLIER',
+    year: 2026,
+    status: 'shipped',
+    summary: 'A free daily trivia game where only the uncommon answers score.',
+    details:
+      'Each day has seven open-ended prompts with 25 seconds each, like "Name a moon of Saturn". Any correct answer counts, but the fewer players who said it, the farther your probe flies, from Earth out to interstellar space. Rarity starts as an estimate and shifts toward what players actually answer. There are 593 prompts across 18 categories, an unlimited mode, and crew rooms for up to 8 friends.',
+    stack: ['JavaScript', 'Cloudflare'],
+    links: [{ label: 'Play OUTLIER', href: 'https://outlier.n1ght.club' }],
+  },
+  {
     slug: 'dmcl',
     name: 'dmcl',
     year: 2026,
